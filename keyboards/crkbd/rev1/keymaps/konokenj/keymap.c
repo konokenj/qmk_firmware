@@ -31,6 +31,7 @@ enum custom_keycodes {
   LOWER,
   RAISE,
   ADJUST,
+  ESCIMOFF, // Send EISU key when ESC is pressed
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -40,7 +41,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       KC_LCTL,    KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                         KC_H,    KC_J,    KC_K,    KC_L, KC_SCLN, KC_QUOT,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_LSFT,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                         KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH,  KC_ESC,
+      KC_LSFT,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                         KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH,ESCIMOFF,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                           KC_LGUI,  LOWER,   KC_SPC,     KC_ENT,   RAISE, KC_RALT
                                       //`--------------------------'  `--------------------------'
@@ -76,7 +77,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       KC_LCTL,  KC_F11,  KC_F12,  KC_F13,  KC_F14,  KC_F15,                      KC_MPRV, KC_MPLY, KC_MNXT, KC_BRID, KC_BRIU, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_LSFT, KC_CAPS,  KC_INS, XXXXXXX, XXXXXXX, XXXXXXX,                      KC_MUTE, KC_VOLD, KC_VOLU, KC_MCTL, KC_LPAD, XXXXXXX,
+      KC_LSFT, KC_CAPS,  KC_INS, XXXXXXX, XXXXXXX, XXXXXXX,                      KC_MUTE, KC_VOLD, KC_VOLU, XXXXXXX, XXXXXXX, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                           KC_LGUI, _______,  KC_SPC,     KC_ENT, _______, KC_RALT
                                       //`--------------------------'  `--------------------------'
@@ -186,6 +187,20 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   }
 
   switch (keycode) {
+    // Send EISU key when ESC is pressed
+    case ESCIMOFF:
+      if (record->event.pressed) {
+        register_code(KC_ESC);
+        register_code(KC_LNG2);
+        register_code(JP_MHEN);
+      } else {
+        unregister_code(KC_ESC);
+        unregister_code(KC_LNG2);
+        unregister_code(JP_MHEN);
+      }
+      return false;
+      break;
+
     case LOWER:
       if (record->event.pressed) {
         lower_pressed = true;
