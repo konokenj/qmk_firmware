@@ -26,6 +26,8 @@
     },
     "python.formatting.provider": "yapf",
     "[json]": {
-	    "editor.formatOnSave": false
-    }
+        "editor.formatOnSave": false
+    },
+    "vue.features.codeActions.enable": false,
+    "cmake.configureOnOpen": false
 }
