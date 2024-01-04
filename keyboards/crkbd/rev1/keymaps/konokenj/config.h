@@ -52,8 +52,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     #define RGBLIGHT_SAT_STEP 17
     #define RGBLIGHT_VAL_STEP 17
     #define RGBLIGHT_SLEEP  // enable rgblight_suspend() and rgblight_wakeup() in keymap.c
-    #define RGBLIGHT_TIMEOUT 120000  // ms to wait until rgblight time out, 900K ms is 15min.
+    #define RGBLIGHT_TIMEOUT 60000  // ms to wait until rgblight time out, 900K ms is 15min.
     #define WS2812_DI_PIN D3
+    #define RGBLIGHT_DEFAULT_MODE RGBLIGHT_MODE_STATIC_LIGHT
+    #define RGBLIGHT_DEFAULT_HUE 110
+    #define RGBLIGHT_DEFAULT_SAT 255
+    #define RGBLIGHT_DEFAULT_VAL 80
+    #define RGBLIGHT_DEFAULT_ON false
 #endif
 
 #define OLED_FONT_H "keyboards/crkbd/lib/glcdfont.c"
