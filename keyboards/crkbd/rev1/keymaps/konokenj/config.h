@@ -24,9 +24,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Select hand configuration */
 
-#define MASTER_LEFT
+// USBを左右どちらに接続しても良いように、EEPROMから設定を読み込む
+// これを動作させるためには、flash時のブートローダーを左右個別に指定する
+// $ qmk flash -kb crkbd/rev1 -km konokenj -bl dfu-split-left
+// $ qmk flash -kb crkbd/rev1 -km konokenj -bl dfu-split-right
+// https://docs.qmk.fm/#/config_options?id=split-keyboard-options
+// #define MASTER_LEFT
 // #define MASTER_RIGHT
-// #define EE_HANDS
+#define EE_HANDS
 
 #define QUICK_TAP_TERM 100
 #define TAPPING_TERM 185
@@ -46,6 +51,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     #define RGBLIGHT_HUE_STEP 10
     #define RGBLIGHT_SAT_STEP 17
     #define RGBLIGHT_VAL_STEP 17
+    #define RGBLIGHT_SLEEP  // enable rgblight_suspend() and rgblight_wakeup() in keymap.c
+    #define RGBLIGHT_TIMEOUT 120000  // ms to wait until rgblight time out, 900K ms is 15min.
+    #define WS2812_DI_PIN D3
 #endif
 
 #define OLED_FONT_H "keyboards/crkbd/lib/glcdfont.c"
